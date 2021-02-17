@@ -29,7 +29,7 @@ public class ProjectController {
     @PostMapping("")
     public ResponseEntity<?> store(@Valid @RequestBody Project project,
                                    BindingResult result) {
-        ResponseEntity<?> errorMap =
+        var errorMap =
                 mapValidationErrorService.mapValidationErrorService(result);
         if (errorMap != null) return errorMap;
 
@@ -39,7 +39,7 @@ public class ProjectController {
 
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
-        Project project = projectService.findProjectByIdentifier(projectId);
+        var project = projectService.findProjectByIdentifier(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 

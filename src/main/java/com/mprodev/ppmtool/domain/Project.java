@@ -2,6 +2,8 @@ package com.mprodev.ppmtool.domain;
 /* Mirshod created on 2/12/2021 */
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -36,6 +38,10 @@ public class Project {
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_at;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
+    private Backlog backlog;
 
     public Project() {
     }
@@ -102,6 +108,14 @@ public class Project {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 
     @PrePersist
