@@ -24,7 +24,7 @@ public class ProjectService {
     public Project saveOrUpdateProject(Project project) {
         try {
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
-
+            System.out.println(project.getStart_date());
             if (project.getId() == null) {
                 var backlog = new Backlog();
                 project.setBacklog(backlog);

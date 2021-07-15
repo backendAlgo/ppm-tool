@@ -27,16 +27,19 @@ public class Project {
     @NotBlank(message = "Project description is required")
     private String description;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @Basic
+    @Temporal(TemporalType.DATE)
     private Date start_date;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @Basic
+    @Temporal(TemporalType.DATE)
     private Date end_date;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(updatable = false)
     private Date created_at;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @Temporal(TemporalType.DATE)
     private Date updated_at;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")

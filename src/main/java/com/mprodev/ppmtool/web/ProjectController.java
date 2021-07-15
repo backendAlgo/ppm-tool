@@ -1,7 +1,6 @@
 package com.mprodev.ppmtool.web;
 
 import com.mprodev.ppmtool.domain.Project;
-import com.mprodev.ppmtool.exceptions.ProjectIdException;
 import com.mprodev.ppmtool.services.MapValidationErrorService;
 import com.mprodev.ppmtool.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import javax.validation.Valid;
 /* Mirshod created on 2/12/2021 */
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin
 public class ProjectController {
     private final ProjectService projectService;
     private final MapValidationErrorService mapValidationErrorService;
@@ -38,7 +38,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{projectId}")
-    public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
+    public ResponseEntity<?> getProjectById(@PathVariable String projectId) throws InterruptedException {
         var project = projectService.findProjectByIdentifier(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
