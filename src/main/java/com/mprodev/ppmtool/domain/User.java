@@ -11,7 +11,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -35,6 +37,13 @@ public class User implements UserDetails {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDate updated_at;
+
+    @OneToMany(cascade = CascadeType.REFRESH,
+            fetch = FetchType.EAGER,
+            mappedBy = "user",
+            orphanRemoval = true
+    )
+    private List<Project> projects = new ArrayList<>();
 
     public User() {
     }
@@ -123,5 +132,13 @@ public class User implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

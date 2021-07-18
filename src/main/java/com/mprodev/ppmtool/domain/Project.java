@@ -42,6 +42,27 @@ public class Project {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore
     private Backlog backlog;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String projectLeader;
+
+    public String getProjectLeader() {
+        return projectLeader;
+    }
+
+    public void setProjectLeader(String projectLeader) {
+        this.projectLeader = projectLeader;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Project() {
     }
@@ -122,6 +143,7 @@ public class Project {
     protected void onCreate() {
         this.created_at = new Date();
     }
+
     @PreUpdate
     protected void onUpdate() {
         this.updated_at = new Date();
